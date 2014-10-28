@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Live Thruster Testing</title>
+
+  <!-- EXTERNAL LIBS-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://www.google.com/jsapi"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <link href="style.css" rel="stylesheet" type="text/css">  
+
+  <script src="tank.js"></script>
+
+    </head>
+    <body>
+    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="/images/br-logo-trans-blue-trans-sm-updated.png" class="img-br-logo logo-rotate">
+                  <span class="blue toplogo">Blue</span><span class="robotics toplogo">Robotics</span>&nbsp;&nbsp;|&nbsp;&nbsp;Thruster Testing</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!--<li class="active"><a href="#">Test</a></li>-->
+            <!--<li><a href="http://www.bluerobotics.com">BlueRobotics</a></li>-->
+          </ul>
+        </div><!--/.nav-collapse -->
+        <div class="pull-right" style="margin-top:-40px">
+        	<span id="timeSinceUpdate"></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container" style="padding-top:100px">
+    	<div class="row">
+    		<div class="col-md-6">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">Commanding</div>
+    				<div class="panel-body">
+    					<div class="input-group">
+    						<span class="input-group-addon"><i class="fa fa-key"></i></span>
+					      <input id="private_key" type="text" class="form-control" placeholder="Private Key">
+					    </div>
+					    <br />
+					    <div class="input-group">
+					    	<input id="inputA" type="text" class="form-control" placeholder="Signal A (1100-1900)">
+					    	<span class="input-group-addon">&mu;s</span>
+					    </div>
+					    <br />
+					    <div class="input-group">
+					    	<input id="inputB" type="text" class="form-control" placeholder="Signal B (1100-1900)">
+					    	<span class="input-group-addon">&mu;s</span>
+					    </div>
+					    <br />
+							<button type="button" onclick="sendCommand();" class="btn btn-default btn-primary">Send Command</button>
+							<br /><br />
+							<span id="commandResponse"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Current State</div>
+						<div class="panel-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Field</th>
+										<th>Value</th>
+										<th>Units</th>
+									</tr>
+								</thead>
+								<tr>
+									<td>
+										RPM
+									</td>
+									<td>
+										<span id="rpmLabel"></span>
+									</td>
+									<td>
+										rev/min
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Power
+									</td>
+									<td>
+										<span id="powerLabel"></span>
+									</td>
+									<td>
+										watts
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Thrust
+									</td>
+									<td>
+										<span id="thrustLabel"></span>
+									</td>
+									<td>
+										lb
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Voltage
+									</td>
+									<td>
+										<span id="voltageLabel"></span>
+									</td>
+									<td>
+										volts
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Current
+									</td>
+									<td>
+										<span id="currentLabel"></span>
+									</td>
+									<td>
+										amps
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Signal
+									</td>
+									<td>
+										<span id="signalLabel"></span>
+									</td>
+									<td>
+										&mu;s
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="fiveMin">5 Min
+				</label>
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="fifteenMin">15 Min
+				</label>				
+				<label class="btn btn-primary active">
+					<input type="radio" name="pageSelector" id="oneHr" checked>1 Hr
+				</label>
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="oneDay">1 Day
+				</label>				
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="oneWeek">1 Week
+				</label>				
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="oneMonth">1 Month
+				</label>												
+				<label class="btn btn-primary">
+					<input type="radio" name="pageSelector" id="allPages">All Data
+				</label>
+			</div>
+			
+  		<br /><br />			
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">RPM</div>
+				<div class="panel-body">
+					<div id="chartRPM" style="width: 100%;"></div>				
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Power</div>
+				<div class="panel-body">
+					<div id="chartPower" style="width: 100%;"></div>				
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Thrust</div>
+				<div class="panel-body">
+					<div id="chartThrust" style="width: 100%;"></div>				
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Voltage</div>
+				<div class="panel-body">
+					<div id="chartVoltage" style="width: 100%;"></div>				
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Current</div>
+				<div class="panel-body">
+					<div id="chartCurrent" style="width: 100%;"></div>				
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Signal</div>
+				<div class="panel-body">
+					<div id="chartSignal" style="width: 100%;"></div>				
+				</div>
+			</div>			
+		</div>
+
+		    
+    <div class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Blue Robotics</p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>    
+    </body>
+    </html>

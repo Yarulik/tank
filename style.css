@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'np_naipol_b';
-  src: url('http://www.bluerobotics.com/wp-content/themes/roots-master/assets/fonts/np naipol all in one_b.eot');
-  src: url('http://www.bluerobotics.com/wp-content/themes/roots-master/assets/fonts/np naipol all in one_b.eot?#iefix') format('embedded-opentype'),
-       url('http://www.bluerobotics.com/wp-content/themes/roots-master/assets/fonts/np naipol all in one_b.woff') format('woff'),
-       url('http://www.bluerobotics.com/wp-content/themes/roots-master/assets/fonts/np naipol all in one_b.ttf') format('truetype'),
-       url('http://www.bluerobotics.com/wp-content/themes/roots-master/assets/fonts/np naipol all in one_b.svg#fp-20698') format('svg');
+  src: url('/assets/fonts/np naipol all in one_b.eot');
+  src: url('/assets/fonts/np naipol all in one_b.eot?#iefix') format('embedded-opentype'),
+       url('/assets/fonts/np naipol all in one_b.woff') format('woff'),
+       url('/assets/fonts/np naipol all in one_b.ttf') format('truetype'),
+       url('/assets/fonts/np naipol all in one_b.svg#fp-20698') format('svg');
 } 
 
 .img-br-logo {
@@ -25,10 +25,9 @@
 }
 
 .robotics {
-    color: black; //rgb(255,255,255);
+    color: black;
 }
 
 .blue {
     color:rgb(38,153,208);    
-    /*color:rgb(103,152,208); /*rgb(39,168,255);*/
 }
